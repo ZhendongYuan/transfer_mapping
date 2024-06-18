@@ -1,0 +1,24 @@
+---
+title: "ufp_distance_weighted_coral"
+output: html_document
+author: Zhendong Yuan at 18 june 2024. 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("caret")
+library("Metrics")
+```
+
+```{r}
+coral_cph2ams = read.csv("your prediction of coral ")
+coral_rtm2ams = read.csv("your prediction of coral")
+distance_weighted_coral = coral_cph2ams$X0 * (1-620/(620+57)) + coral_rtm2ams$X0 * (1-57/(620+57))
+validation_data = read.csv('your validation data', sep=',')
+```
+
+```{r}
+R2(validation_data$UFP,distance_weighted_coral)
+MAE(validation_data$UFP,distance_weighted_coral)
+RMSE(validation_data$UFP,distance_weighted_coral)
+```
